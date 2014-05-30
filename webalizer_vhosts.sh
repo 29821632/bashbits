@@ -1,13 +1,11 @@
 #!/bin/bash
 
-# Webalizer vhost processor
-# Ben Bradley 2013 https://github.com/benbradley
+# Webalizer vhost processor. Ben Bradley 2013. https://github.com/benbradley
+# A simple wrapper for Webalizer. See: http://www.webalizer.org/webalizer.1.html
 #
-# Loop through Apache vhost configs and run webalizer on the access logs
-# Reads ServerName directive(s) from vhost configuration files
-# Assumes vhost-specific logging with log file names starts with ServerName and ends with $suffix
-#
-# http://www.webalizer.org/webalizer.1.html
+# Has 2 modes of operation:
+# 1) Runs webalizer on each HTTP log file in a specified directory
+# 2) Reads vhost configs from specified directory and runs webalizer on corresponding log file based on Apache ServerName directive
 #
 # Options:
 # - vhost config dir
@@ -24,6 +22,7 @@
 # -o output dir
 
 TIMER_START=$SECONDS
+VHOST_MODE=false
 
 # Webalizer command exists?
 : 'command -v webalizer >/dev/null
@@ -37,7 +36,7 @@ OPTIND=1 # Reset if getopts used previously
 
 # No options
 if (($# == 0)); then
-	echo "Usage: webalizer-vhosts.sh -l /var/log/httpd -o /var/www/html/webstats -v /etc/httpd/vhosts.d [-s _access.log]"
+	echo "Usage: webalizer-vhosts.sh -l /var/log/httpd -o /var/www/html/webstats [-v /etc/httpd/vhosts.d] [-s _access.log]"
 	exit 2
 fi
 
@@ -112,12 +111,6 @@ if [ ! "$OUTPUT_DIR" ]; then
 	exit 1
 fi
 
-# Check VHOST_DIR
-if [ ! "$VHOST_DIR" ]; then
-	echo "Vhost config directory not specified."
-	exit 1
-fi
-
 # Normalise trailing slash in LOG_DIR
 LOG_DIR=${LOG_DIR%/}
 LOG_DIR="$LOG_DIR/"
@@ -125,10 +118,6 @@ LOG_DIR="$LOG_DIR/"
 # Normalise trailing slash in OUTPUT_DIR
 OUTPUT_DIR=${OUTPUT_DIR%/}
 OUTPUT_DIR="$OUTPUT_DIR/"
-
-# Normalise trailing slash in VHOST_DIR
-VHOST_DIR=${VHOST_DIR%/}
-VHOST_DIR="$VHOST_DIR/"
 
 # Check LOG_DIR exists
 if [ ! -d "$LOG_DIR" ]; then
@@ -142,34 +131,59 @@ if [ ! -d "$OUTPUT_DIR" ] || [ ! -w "$OUTPUT_DIR" ]; then
 	exit 1
 fi
 
-# Check VHOST_DIR exists
-if [ ! -d "$VHOST_DIR" ]; then
-	echo "Vhost config directory '$VHOST_DIR' does not exist."
-	exit 1
+# Check VHOST_DIR
+if [ -n "$VHOST_DIR" ]; then
+	# VHOST_DIR set
+	
+	# Normalise trailing slash in VHOST_DIR
+	VHOST_DIR=${VHOST_DIR%/}
+	VHOST_DIR="$VHOST_DIR/"
+
+	# Check VHOST_DIR exists
+	if [ ! -d "$VHOST_DIR" ]; then
+		echo "Vhost config directory '$VHOST_DIR' was specified but does not exist. Exiting."
+		exit 1
+	fi
+
+	# Set vhost mode flag
+	VHOST_MODE=true
 fi
 
 # Output time/date
-echo "webalizer-vhosts.sh $(date)"
+echo "webalizer_vhosts.sh $(date)"
 
 # Initialise counter vars
 COUNT_OK=0
-COUNT_VHOSTS=0
+COUNT_TOTAL=0
 
 # Change IFS for loop
 IFS_BAK=$IFS
 IFS=$'\n'
 
-# Grep vhost directory
-GREP_OUTPUT=`grep -h "ServerName \+" "$VHOST_DIR"*`
-if [ $? -ne 0 ]; then
-	echo "Grep of vhost directory failed. Exiting."
-	exit 1
+
+# Vhost or log dir mode?
+if [ "$VHOST_MODE" = true ]; then
+	# Vhost mode
+	echo "Reading vhost config directory '$VHOST_DIR'."
+
+	# Grep vhost directory
+	RUNLIST=`grep -h "ServerName \+" "$VHOST_DIR"*`
+	if [ $? -ne 0 ]; then
+		echo "Grep of vhost directory failed. Exiting."
+		exit 1
+	fi
+
+else
+	# Log dir mode
+
+
 fi
 
-# Loop through lines of GREP_OUTPUT
-for LINE in $GREP_OUTPUT; do
 
-	COUNT_VHOSTS=$((COUNT_VHOSTS+1))
+# Loop through lines of RUNLIST
+for LINE in $RUNLIST; do
+
+	COUNT_TOTAL=$((COUNT_TOTAL+1))
 
 	VHOST_DOMAIN=`echo "$LINE" | sed -e 's/^ *ServerName \+//' -e 's/ *$//'`
 	echo "* $VHOST_DOMAIN"
@@ -222,7 +236,7 @@ done
 SCRIPT_DURATION=$(( SECONDS - TIMER_START ))
 
 echo ""
-echo "Vhosts:$COUNT_VHOSTS   OK:$COUNT_OK   Duration:$SCRIPT_DURATION secs"
+echo "Log Files:$COUNT_TOTAL   OK:$COUNT_OK   Duration:$SCRIPT_DURATION secs"
 echo "__________________________________________"
 
 # Revert IFS
