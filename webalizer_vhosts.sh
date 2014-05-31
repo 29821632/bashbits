@@ -2,10 +2,11 @@
 
 # Webalizer vhost processor. Ben Bradley 2013. https://github.com/benbradley
 # A simple wrapper for Webalizer. See: http://www.webalizer.org/webalizer.1.html
+# Although it's old I still find webalizer useful to run over Apache logs to see what's going on
 #
 # Has 2 modes of operation:
-# 1) Runs webalizer on each HTTP log file in a specified directory
-# 2) Reads vhost configs from specified directory and runs webalizer on corresponding log file based on Apache ServerName directive
+# 1) Runs webalizer on each HTTP log file in the specified directory
+# 2) Reads vhost configs from specified directory and runs webalizer on corresponding log file based on Apache ServerName directive. Assumes log file name is prefixed with ServerName.
 #
 # Options:
 # - vhost config dir

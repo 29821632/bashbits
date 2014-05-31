@@ -2,8 +2,6 @@
 A collection of random bash scripts I've made for all sorts of tasks over the years...
 
 ### webalizer_vhosts.sh
-Even though it's old, I still find running Webalizer over HTTP log files a decent way of seeing what's going on. Webalizer doesn't play nicely with vhosts by default, needing you to loop over files or setup a webalizer config file for each vhost. This script basically just loops through Apache log files and runs webalizer with a bunch of assumed defaults and some sanity checking.
-
 **Status:** Unstable - in development
 
 # Who, Where & Why
