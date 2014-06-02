@@ -1,7 +1,10 @@
 # Bash Bits
 A collection of random bash scripts I've made for all sorts of tasks over the years...
 
-### webalizer_vhosts.sh
+#### svnauto.sh
+**Status:** Good to go
+
+#### webalizer_vhosts.sh
 **Status:** Unstable - in development
 
 # Who, Where & Why
