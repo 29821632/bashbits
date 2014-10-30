@@ -53,7 +53,7 @@ function sar_io {
 	DATA=''
 
 	# Run sar
-	OUTPUT=`sar -p -d | grep -iv average | grep "$TIME_NOW" | tail -n20`
+	OUTPUT=`sar -p -d | grep -iv average | tail -n30 | grep "$TIME_NOW"`
 
 	RETURN=$?
 	if [ $RETURN -ne 0 ]; then
@@ -61,6 +61,9 @@ function sar_io {
 		exit 1
 	fi
 
+	# Raw output
+	#echo "$OUTPUT"
+	
 	# Loop through lines of OUTPUT
 	while IFS= read -r LINE
 	do
@@ -69,12 +72,12 @@ function sar_io {
 		ARR_LEN=${#ARR[@]}
 
 		# Get certain cols from right
-		UTIL_PCT=${ARR[$ARR_LEN-1]}
+		UTILPCT=${ARR[$ARR_LEN-1]}
 		AWAIT=${ARR[$ARR_LEN-3]}
 		TPS=${ARR[$ARR_LEN-8]}
-		DEV=${ARR[$ARR_LEN-9]}
+		BLOCKDEVICE=${ARR[$ARR_LEN-9]}
 
-		DATA=`printf "%s.%s.%s.%s %s %s\n" $STATS_PREFIX $TYPE $DEV "util_pct" $UTIL_PCT $NOW`
+		DATA=`printf "%s.%s.%s.%s %s %s\n" $STATS_PREFIX $TYPE $BLOCKDEVICE "utilpct" $UTILPCT $NOW`
 		echo $DATA
 	done <<< "$OUTPUT"
 
