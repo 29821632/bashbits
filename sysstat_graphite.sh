@@ -62,14 +62,21 @@ function sar_io {
 	fi
 
 	# Loop through lines of OUTPUT
-	while read -r line
+	while IFS= read -r LINE
 	do
+		# Split into array
+		ARR=($LINE)
+		ARR_LEN=${#ARR[@]}
 
-		UTIL_PCT=${line##* }
-		echo $UTIL_PCT
-		#echo printf("%s", $STATS_PREFIX)
-		#DATA="$DATA"
-	done < <(OUTPUT)
+		# Get certain cols from right
+		UTIL_PCT=${ARR[$ARR_LEN-1]}
+		AWAIT=${ARR[$ARR_LEN-3]}
+		TPS=${ARR[$ARR_LEN-8]}
+		DEV=${ARR[$ARR_LEN-9]}
+
+		DATA=`printf "%s.%s.%s.%s %s %s\n" $STATS_PREFIX $TYPE $DEV "util_pct" $UTIL_PCT $NOW`
+		echo $DATA
+	done <<< "$OUTPUT"
 
 }
 
