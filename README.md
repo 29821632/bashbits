@@ -4,6 +4,9 @@ A collection of random bash scripts I've made for all sorts of tasks over the ye
 #### svnauto.sh
 **Status:** Good to go
 
+#### sysstat_graphite.sh
+**Status:** Unstable - in development
+
 #### webalizer_vhosts.sh
 **Status:** Unstable - in development
 
