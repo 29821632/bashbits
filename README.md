@@ -1,6 +1,9 @@
 # Bash Bits
 A collection of random bash scripts I've made for all sorts of tasks over the years...
 
+#### drushbatch.sh
+**Status:** Good to go
+
 #### svnauto.sh
 **Status:** Good to go
 
