@@ -112,7 +112,7 @@ do
 
 	COUNT_SITES=$((COUNT_SITES+1))
 	SITE="$LINE"
-	echo "#     Site: $SITE"
+	echo "Site: $SITE"
 
 	# Check site dir is valid
 	if [ ! -d "$SITE" ]; then
@@ -120,7 +120,7 @@ do
 		exit 1
 	fi
 
-	echo "#     drush $SITE $DRUSH_CMD"
+	echo "drush $SITE $DRUSH_CMD"
 
 	# Execute?
 	if [ $DRUSH_EXEC ]; then
@@ -136,12 +136,12 @@ do
 		fi
 	fi
 
-	echo "#"
+	echo ""
 
 done <<< "$SITES"
 
 # Stop timer
 SCRIPT_DURATION=$(( SECONDS - TIMER_START ))
 
-echo "#     Sites:$COUNT_SITES  OK:$COUNT_OK  Fail:$COUNT_FAILED  Duration:$SCRIPT_DURATION secs"
+echo "Sites:$COUNT_SITES  OK:$COUNT_OK  Fail:$COUNT_FAILED  Duration:$SCRIPT_DURATION secs"
 echo ""
