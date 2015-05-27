@@ -125,7 +125,7 @@ do
 	# Execute?
 	if [ $DRUSH_EXEC ]; then
 		# Execute!
-		drush $SITE $DRUSH_CMD
+		drush "$SITE" $DRUSH_CMD
 
 		OUT=$?
 		if [ $OUT -eq 0 ]; then
