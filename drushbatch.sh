@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Run drush commands on all Drupal sites within an Aegir platform. Ben Bradley 2014. https://github.com/benbradley
-# Usage: ./drushbatch.sh -d /var/aegir/platforms/<platform_name>/sites -c "cc all" -x
+# Run drush commands on all Drupal sites within an Drupal multi-site platform. Ben Bradley 2014. https://github.com/benbradley
+# Usage: ./drushbatch.sh -d /var/www/drupalplatforms/<platform>/sites -c "cc all" -x
 
 TIMER_START=$SECONDS
 
@@ -84,7 +84,7 @@ if [ ! $DRUSH_EXEC ]; then
 	echo "#     INFO: Dry run mode. Add -x to execute"
 fi
 
-# Find valid Aegir sites, look for settings.php file
+# Find valid Drupal sites, look for settings.php file
 cd "$SITES_DIR"
 SITES=`find -L . -mindepth 2 -maxdepth 2 -type f -name settings.php | sed "s@./\([a-z0-9_\.\-]\{1,\}\)/.*@\1@g" | sort`
 
