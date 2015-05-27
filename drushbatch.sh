@@ -84,9 +84,9 @@ if [ ! $DRUSH_EXEC ]; then
 	echo "#     INFO: Dry run mode. Add -x to execute"
 fi
 
-# Find valid Aegir sites, look for drushrc.php file
+# Find valid Aegir sites, look for settings.php file
 cd "$SITES_DIR"
-SITES=`find . -mindepth 2 -maxdepth 2 -type f -name drushrc.php | sed "s@./\([a-z0-9_\.\-]\{1,\}\)/.*@\1@g" | sort`
+SITES=`find -L . -mindepth 2 -maxdepth 2 -type f -name settings.php | sed "s@./\([a-z0-9_\.\-]\{1,\}\)/.*@\1@g" | sort`
 
 OUT=$?
 if [ $OUT -ne 0 ]; then
