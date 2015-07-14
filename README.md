@@ -1,16 +1,16 @@
 # Bash Bits
 A collection of random bash scripts I've made for all sorts of tasks over the years...
 
-#### drushbatch.sh
+### drushbatch.sh
 **Status:** Good to go
 
-#### svnauto.sh
+### svnauto.sh
 **Status:** Good to go
 
-#### sysstat_graphite.sh
+### sysstat_graphite.sh
 **Status:** Unstable - in development
 
-#### webalizer_vhosts.sh
+### webalizer_vhosts.sh
 **Status:** Unstable - in development
 
 # Who, Where & Why
@@ -22,7 +22,3 @@ A collection of random bash scripts I've made for all sorts of tasks over the ye
 No refunds.
 
 These scripts can almost certainly be improved. If you want to send bugfixes in then go ahead, just tell me *why* it should be changed!
-
-I'm not a github pro or a git pro, so it might take me a while to import your changes properly.
-
-
