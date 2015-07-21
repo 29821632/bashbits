@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Config file. Add additional host names into the array below
+declare -a hostsarray=("webhost1.domain.com" "webhost2.domain.com" "webhost3.domain.com" "webhost4.domain.com" "webhost5.domain.com")

@@ -5,11 +5,16 @@
 # Uses /etc/init.d, not tested with systemd
 
 
-# Hostname array
-declare -a arr=("webhost1.domain.com" "webhost2.domain.com" "webhost2.domain.com" "webhost2.domain.com")
-
-
 APACHECLUSTERUSR="apachecluster"
+
+
+# Source config file
+if [ -f "apacheclustersync_config.sh" ]; then
+	source apacheclustersync_config.sh
+else
+	echo "Config file apacheclustersync_config.sh not found. Exiting."
+	exit 1
+fi
 
 
 # Check local config valid
@@ -22,7 +27,7 @@ fi
 
 # Rsync to each host
 echo "rsync vhosts"
-for i in "${arr[@]}"
+for i in "${hostsarray[@]}"
 do
 	rsync -h --progress --delete /etc/httpd/vhosts.d/* "$APACHECLUSTERUSR@$i:/etc/httpd/vhosts.d/"
 	if [ $? -ne 0 ]; then
@@ -34,7 +39,7 @@ done
 
 # Attempt configtest on each host
 echo "httpd configtest"
-for i in "${arr[@]}"
+for i in "${hostsarray[@]}"
 do
 	echo "$i"
 	ssh "$APACHECLUSTERUSR$i" "/etc/init.d/httpd configtest"
@@ -47,4 +52,3 @@ done
 
 # Attempt graceful restart on each host
 echo "httpd graceful"
-
