@@ -18,37 +18,59 @@ fi
 
 
 # Check local config valid
+echo "* httpd configtest local"
 /etc/init.d/httpd configtest
 if [ $? -ne 0 ]; then
-	echo "Local httpd configtest failed. Exiting."
+	echo "httpd configtest local failed. Exiting."
 	exit 1
 fi
+echo ""
 
 
 # Rsync to each host
-echo "rsync vhosts"
 for i in "${hostsarray[@]}"
 do
-	rsync -h --progress --delete /etc/httpd/vhosts.d/* "$APACHECLUSTERUSR@$i:/etc/httpd/vhosts.d/"
+	echo "* rsync vhosts $i"
+	rsync -rh --delete /etc/httpd/vhosts.d/ "$APACHECLUSTERUSR@$i:/etc/httpd/vhosts.d"
 	if [ $? -ne 0 ]; then
 		echo "rsync to $i failed. Exiting."
 		exit 1
 	fi
+	echo ""
 done
 
 
 # Attempt configtest on each host
-echo "httpd configtest"
 for i in "${hostsarray[@]}"
 do
-	echo "$i"
-	ssh "$APACHECLUSTERUSR$i" "/etc/init.d/httpd configtest"
+	echo "* httpd configtest $i"
+	ssh "$APACHECLUSTERUSR@$i" "sudo /etc/init.d/httpd configtest"
 	if [ $? -ne 0 ]; then
 		echo "httpd configtest $i failed. Exiting."
 		exit 1
 	fi
+	echo ""
 done
 
 
 # Attempt graceful restart on each host
-echo "httpd graceful"
+for i in "${hostsarray[@]}"
+do
+	echo "* httpd graceful $i"
+	ssh "$APACHECLUSTERUSR@$i" "sudo /etc/init.d/httpd graceful"
+	if [ $? -ne 0 ]; then
+		echo "httpd graceful $i failed. Exiting."
+		exit 1
+	fi
+	echo ""
+done
+
+
+# Graceful restart on local host
+echo "* httpd graceful local"
+/etc/init.d/httpd graceful
+if [ $? -ne 0 ]; then
+	echo "httpd graceful local failed. Exiting."
+	exit 1
+fi
+echo ""
