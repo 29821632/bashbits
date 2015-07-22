@@ -8,9 +8,13 @@
 APACHECLUSTERUSR="apachecluster"
 
 
+# Get script dir
+DIR_SCRIPT=$(dirname `which "$0"`)
+
+
 # Source config file
-if [ -f "apacheclustersync_config.sh" ]; then
-	source apacheclustersync_config.sh
+if [ -f "$DIR_SCRIPT/apacheclustersync_config.sh" ]; then
+	source "$DIR_SCRIPT/apacheclustersync_config.sh"
 else
 	echo "Config file apacheclustersync_config.sh not found. Exiting."
 	exit 1
