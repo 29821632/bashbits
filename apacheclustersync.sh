@@ -40,6 +40,7 @@ do
 		echo "rsync to $i failed. Exiting."
 		exit 1
 	fi
+	echo "OK"
 	echo ""
 done
 
@@ -66,6 +67,7 @@ do
 		echo "httpd graceful $i failed. Exiting."
 		exit 1
 	fi
+	echo "OK"
 	echo ""
 done
 
@@ -77,4 +79,5 @@ if [ $? -ne 0 ]; then
 	echo "httpd graceful local failed. Exiting."
 	exit 1
 fi
+echo "OK"
 echo ""
