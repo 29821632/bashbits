@@ -1,6 +1,9 @@
 # Bash Bits
 A collection of random bash scripts I've made for all sorts of tasks over the years...
 
+### apacheclustersync.sh
+**Status:** Good to go
+
 ### drushbatch.sh
 **Status:** Good to go
 
@@ -21,4 +24,4 @@ A collection of random bash scripts I've made for all sorts of tasks over the ye
 # Returns Policy
 No refunds.
 
-These scripts can almost certainly be improved. If you want to send bugfixes in then go ahead, just tell me *why* it should be changed!
+These scripts can almost certainly be improved. If you want to send bugfixes then go ahead, just tell me *why* it should be changed.
