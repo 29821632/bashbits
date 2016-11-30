@@ -1,5 +1,5 @@
 # Bash Bits
-A collection of random bash scripts I've made for all sorts of tasks over the years...
+A collection of random bash scripts I use. Whatever.
 
 ### apacheclustersync.sh
 **Status:** Good to go
@@ -8,6 +8,9 @@ A collection of random bash scripts I've made for all sorts of tasks over the ye
 **Status:** Good to go
 
 ### svnauto.sh
+**Status:** Good to go
+
+### ffmpeg_build_el.sh
 **Status:** Good to go
 
 ### sysstat_graphite.sh
