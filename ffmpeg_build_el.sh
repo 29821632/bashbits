@@ -84,15 +84,6 @@ make install
 make distclean
 
 cd "$FFSOURCEDIR"
-curl -L -O http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
-tar xzvf lame-3.99.5.tar.gz
-cd lame-3.99.5
-./configure --prefix="$FFBUILDDIR" --bindir="$FFBINDIR" --disable-shared --enable-nasm
-make
-make install
-make distclean
-
-cd "$FFSOURCEDIR"
 curl -O http://downloads.xiph.org/releases/opus/opus-1.0.3.tar.gz
 tar xzvf opus-1.0.3.tar.gz
 cd opus-1.0.3
@@ -132,6 +123,15 @@ curl -O http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz
 tar xzvf libtheora-1.1.1.tar.gz
 cd libtheora-1.1.1
 ./configure --prefix="$FFBUILDDIR" --with-ogg="$FFBUILDDIR" --disable-examples --disable-shared --disable-sdltest --disable-vorbistest
+make
+make install
+make distclean
+
+cd "$FFSOURCEDIR"
+curl -L -O https://sourceforge.mirrorservice.org/l/la/lame/lame/3.99/lame-3.99.5.tar.gz
+tar xzvf lame-3.99.5.tar.gz
+cd lame-3.99.5
+./configure --prefix="$FFBUILDDIR" --bindir="$FFBINDIR" --disable-shared --enable-nasm
 make
 make install
 make distclean
