@@ -79,8 +79,8 @@ cd "$FFSOURCEDIR"
 wget http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
 tar xjvf last_x264.tar.bz2
 cd x264-snapshot*
-PATH="$FFBINDIR" ./configure --prefix="$FFBUILDDIR" --bindir="$FFBINDIR" --enable-static --disable-opencl
-PATH="$FFBINDIR" make
+PATH="$FFBINDIR:$PATH" ./configure --prefix="$FFBUILDDIR" --bindir="$FFBINDIR" --enable-static --disable-opencl
+PATH="$FFBINDIR:$PATH" make
 make install
 
 # INSTALL libx265
