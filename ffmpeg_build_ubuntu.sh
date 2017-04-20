@@ -5,7 +5,7 @@
 # Ben Bradley 2013. https://github.com/benbradley
 
 echo ""
-echo "FFmpeg build script for EL/Fedora based distributions"
+echo "FFmpeg build script for Ubuntu based distributions"
 echo "Based on: https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu"
 echo "  as of April 18, 2017"
 echo "---"
