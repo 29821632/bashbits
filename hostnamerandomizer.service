@@ -1,0 +1,15 @@
+[Unit]
+Description=Random hostname on shutdown
+After=multi-user.target
+After=network.target
+#Requires=dbus.service
+#DefaultDependencies=no
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/true
+ExecStop=/bin/bash /usr/local/bin/hostnamerandomizer.sh stop
+
+[Install]
+WantedBy=multi-user.target
