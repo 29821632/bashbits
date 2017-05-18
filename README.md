@@ -12,6 +12,7 @@ A small collection of really random scripts I use on the reg. Whatever.
 
 ### hostnamerandomizer.sh ###
 **Status:** Good to go
+
 Including a systemd unit file to run the script on system shutdown.
 ```shell
 sudo cp -v hostnamerandomizer.sh /usr/local/bin/
