@@ -1,5 +1,5 @@
 # Bash Bits
-A collection of random bash scripts I use. Whatever.
+A small collection of really random scripts I use on the reg. Whatever.
 
 ### apacheclustersync.sh
 **Status:** Good to go
@@ -7,10 +7,19 @@ A collection of random bash scripts I use. Whatever.
 ### drushbatch.sh
 **Status:** Good to go
 
-### svnauto.sh
+### ffmpeg_build_el.sh
 **Status:** Good to go
 
-### ffmpeg_build_el.sh
+### hostnamerandomizer.sh ###
+**Status:** Good to go
+Including a systemd unit file to run the script on system shutdown.
+```shell
+sudo cp -v hostnamerandomizer.sh /usr/local/bin/
+sudo cp -v hostnamerandomizer.service /etc/systemd/system
+sudo systemctl enable hostnamerandomizer && sudo systemctl start hostnamerandomizer && sudo systemctl status hostnamerandomizer
+```
+
+### svnauto.sh
 **Status:** Good to go
 
 ### sysstat_graphite.sh
