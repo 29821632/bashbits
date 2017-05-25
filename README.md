@@ -4,6 +4,11 @@ A small collection of really random scripts I use on the reg. Whatever.
 ### apacheclustersync.sh
 **Status:** Good to go
 
+### curlbuild.sh
+**Status:** Good to go
+
+Downloads and builds latest version with HTTP/2 support
+
 ### drushbatch.sh
 **Status:** Good to go
 
