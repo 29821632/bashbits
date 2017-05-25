@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Build latest version of curl from source. Tested in *buntu distros which use GnuTLS for the packaged curl
+# Build latest version of curl from source with http2 support. Tested in *buntu distros which use GnuTLS for the packaged curl
 # Requires following packages:  nghttp2 libnghttp2-dev libgnutls-dev libidn2-0 libidn2-0-dev
 # Ben Bradley 2017. https://github.com/benbradley
 
